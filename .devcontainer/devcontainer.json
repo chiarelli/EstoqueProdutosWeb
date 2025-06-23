@@ -1,0 +1,38 @@
+{
+  "name": "estoque-produtos-angular19",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",                // container principal para VSCode abrir
+  "workspaceFolder": "/workspace",
+  "remoteUser": "vscode",
+
+  "forwardPorts": [4200, 8081],
+  "portsAttributes": {
+    "4200": {
+      "label": "Angular App",
+      "onAutoForward": "openBrowser"
+    },
+    "8081": {
+      "label": "API",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  // Extensões úteis para Angular
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "Codeium.codeium",
+        "mhutchie.git-graph",
+        "grogdunn.netbeans-keybindings",
+        "rufuswein.saveall",
+        "steoates.autoimport",
+        "hossaini.bootstrap-intellisense",
+        "johnpapa.Angular2"
+      ]
+    }
+  },
+  "postCreateCommand": "npm run dev"
+}

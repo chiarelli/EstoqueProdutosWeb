@@ -1,0 +1,48 @@
+services:
+
+  dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.dev
+    volumes:
+      - ..:/workspace:cached
+    ports:
+      - "4200:4200"
+    environment:
+      # GIT
+      - GIT_USER_NAME=Raphael Mathias
+      - GIT_USER_EMAIL=oi.sucesso@gmail.com
+    command: sleep infinity
+    depends_on:
+      - backend
+  
+  backend:
+    build:
+      context: .                          # contexto do repositório todo
+      dockerfile: Dockerfile.backend
+    environment:
+      SPRING_APPLICATION_JSON: >
+        {
+          "spring.datasource.url": "jdbc:postgresql://postgres:5432/estoque_produtos",
+          "spring.datasource.username": "postgres",
+          "spring.datasource.password": "postgres"
+        }
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./spring-boot-run.sh:/spring-boot-run.sh
+    command: /spring-boot-run.sh
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_DB=estoque_produtos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      # - estoque_produtos_data:/var/lib/postgresql/data
+      - ./imports.sql:/docker-entrypoint-initdb.d/imports.sql:ro
