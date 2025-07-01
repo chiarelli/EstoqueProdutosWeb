@@ -19,3 +19,7 @@ export interface ProdutoRequest {
   quantidade: number;
   categoria_id: string;
 }
+
+export interface ErrosAPI {
+  [campo: string]: string;
+}
