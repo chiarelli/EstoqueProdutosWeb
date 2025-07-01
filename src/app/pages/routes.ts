@@ -7,5 +7,12 @@ export const routes: Routes = [
     data: {
       title: 'Listar Produtos'
     }
+  },
+  {
+    path: 'novo',
+    loadComponent: () => import('./produto-create/produto-create.component').then(m => m.ProdutoCreateComponent),
+    data: {
+      title: 'Novo Produto'
+    }
   }
 ]

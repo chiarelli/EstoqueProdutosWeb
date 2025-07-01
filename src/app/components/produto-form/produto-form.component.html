@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()" class="row g-3">
+
+  <div class="col-md-6">
+    <label for="nome" class="form-label">Nome</label>
+    <input id="nome" type="text" class="form-control" formControlName="nome" [class.is-invalid]="form.get('nome')?.invalid && form.get('nome')?.touched">
+    <div class="invalid-feedback" *ngIf="form.get('nome')?.errors?.['required']">
+      O nome é obrigatório.
+    </div>
+    <div class="invalid-feedback" *ngIf="form.get('nome')?.errors?.['minlength']">
+      O nome deve ter no mínimo 3 caracteres.
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <label for="preco" class="form-label">Preço</label>
+    <input id="preco" type="number" class="form-control" formControlName="preco" min="0" step="0.01" [class.is-invalid]="form.get('preco')?.invalid && form.get('preco')?.touched">
+    <div class="invalid-feedback" *ngIf="form.get('preco')?.errors?.['required']">
+      O preço é obrigatório.
+    </div>
+    <div class="invalid-feedback" *ngIf="form.get('preco')?.errors?.['min']">
+      O preço deve ser maior ou igual a zero.
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <label for="quantidade" class="form-label">Quantidade</label>
+    <input id="quantidade" type="number" class="form-control" formControlName="quantidade" min="0" [class.is-invalid]="form.get('quantidade')?.invalid && form.get('quantidade')?.touched">
+    <div class="invalid-feedback" *ngIf="form.get('quantidade')?.errors?.['required']">
+      A quantidade é obrigatória.
+    </div>
+    <div class="invalid-feedback" *ngIf="form.get('quantidade')?.errors?.['min']">
+      A quantidade não pode ser negativa.
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="categoria_id" class="form-label">Categoria</label>
+    <select id="categoria_id" class="form-select" formControlName="categoria_id" [class.is-invalid]="form.get('categoria_id')?.invalid && form.get('categoria_id')?.touched">
+      <option value="" disabled selected>Selecione uma categoria</option>
+      <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nome }}</option>
+    </select>
+    <div class="invalid-feedback" *ngIf="form.get('categoria_id')?.errors?.['required']">
+      A categoria é obrigatória.
+    </div>
+  </div>
+
+  <div class="col-12 d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">{{ botaoTexto }}</button>
+  </div>
+</form>
+
