@@ -44,11 +44,23 @@ export class ProdutoListComponent implements OnInit {
 
   openDeleteModal(produto: Produto) {
     this.produtoExclusao = produto;
-    this.modal?.show();
+    this.produtoExclusao ? this.modal?.show() : null;
   }
 
-  deleteProduto(): void {
-    console.log(this.produtoExclusao);
+  deleteProduto = (): void => {
+    const self = this;
+    this.produtosService.excluir(this.produtoExclusao?.id as string).subscribe({
+      next(value) {
+        self.produtos = self.produtos.filter(produto => produto.id !== self.produtoExclusao?.id);        
+      },
+      error(err) {
+        alert('Ocorreu um erro ao excluir o produto');
+        console.error(err);
+      },
+      complete() {
+        self.modal?.hide();
+      }
+    })
   };
 
   getState(id: string): 'hidden' | 'visible' {
