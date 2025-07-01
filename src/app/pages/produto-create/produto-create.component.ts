@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrosAPIResponse } from 'src/app/dtos/errors-response';
@@ -9,6 +10,7 @@ import { ProdutoFormComponent, SubmitResponse } from "../../components/produto-f
 @Component({
   selector: 'app-produto-create',
   imports: [
+    CommonModule,
     ProdutoFormComponent,
     RouterLink,
     ItemFeedbackComponent
