@@ -27,9 +27,13 @@ export class ProdutoCreateComponent {
   constructor(private produtosService: ProdutosService) { }
 
   criarProduto(resp: SubmitResponse) {
+    const self = this;
+
     const {payload, resetCallback: resetForm} = resp;
     const produto = {...payload} as ProdutoRequest;
-    const self = this;
+
+    this.msgSuccess = '';
+    this.apiErrors = new ErrosAPIResponse({});
 
     this.produtosService.criar(produto).subscribe({
       next(value) {
