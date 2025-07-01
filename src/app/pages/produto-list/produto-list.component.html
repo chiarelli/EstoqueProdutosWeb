@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Produtos</strong>
+    <a class="btn btn-sm btn-primary" [routerLink]="['novo']">
+      Novo Produto
+    </a>
+  </div>
+
+  <div class="card-body p-0">
+    <table class="table table-striped mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of produtos">
+          <td>{{ produto.nome }}</td>
+          <td>{{ produto.categoria.nome }}</td>
+          <td>{{ produto.preco | currency:'BRL' }}</td>
+          <td>{{ produto.quantidade }}</td>
+          <td class="text-end">
+
+            <a class="btn btn-sm btn-outline-info me-2"
+               [routerLink]="['../editar', produto.id]"
+               cPopover="Editar produto"
+               cPopoverPlacement="top">
+              <i class="cil-pencil"></i>
+            </a>
+
+            <button class="btn btn-sm btn-outline-danger"
+                    *ngIf="produto.quantidade == 0; else elseQtd"
+                    (click)="openDeleteModal(produto)"
+                    cPopover="Excluir produto"
+                    cPopoverPlacement="left">
+              <i class="cil-trash"></i>
+            </button>
+
+            <ng-template #elseQtd>
+              <span cPopover="Só é possível excluir se a quantidade for zero."
+                    cPopoverPlacement="left">
+                <button class="btn btn-sm btn-outline-danger" disabled>
+                  <i class="cil-trash"></i>
+                </button>
+              </span>
+            </ng-template>
+            
+          </td>
+        </tr>
+        <ng-template *ngIf="!produtos.length">
+          <tr>
+            <td colspan="5" class="text-center text-muted py-3">
+              Nenhum produto cadastrado.
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-modal-exclusao-item [confirmCallback]="deleteProduto">
+  <span modal-header>Deseja realmente excluir este produto?</span>
+  <div modal-body> 
+    <p>Nome: {{ produtoExclusao?.nome }}</p>
+    <p>Preco: {{ produtoExclusao?.preco | currency:'BRL' }}</p>
+    <p>Categoria: {{ produtoExclusao?.categoria?.nome }}</p>
+  </div>
+   <div class="text-center">
+      <strong class="text-danger">Esta ação não pode ser desfeita!</strong>
+    </div>
+</app-modal-exclusao-item>
