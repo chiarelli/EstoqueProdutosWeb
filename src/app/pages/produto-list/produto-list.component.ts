@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PopoverDirective, PopoverModule } from '@coreui/angular';
+import { PopoverDirective } from '@coreui/angular';
 import { Produto } from 'src/app/interfaces';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { ModalExclusaoItemComponent } from "../../components/modal-exclusao-item/modal-exclusao-item.component";

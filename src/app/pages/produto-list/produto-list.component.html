@@ -26,7 +26,7 @@
           <td class="text-end">
 
             <a class="btn btn-sm btn-outline-info me-2"
-               [routerLink]="['../editar', produto.id]"
+               [routerLink]="['editar', produto.id]"
                cPopover="Editar produto"
                cPopoverPlacement="top">
               <i class="cil-pencil"></i>
@@ -51,13 +51,11 @@
             
           </td>
         </tr>
-        <ng-template *ngIf="!produtos.length">
-          <tr>
-            <td colspan="5" class="text-center text-muted py-3">
-              Nenhum produto cadastrado.
-            </td>
-          </tr>
-        </ng-template>
+        <tr *ngIf="produtos.length == 0">
+          <td colspan="5" class="text-center text-muted py-3">
+            Nenhum produto cadastrado.
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
