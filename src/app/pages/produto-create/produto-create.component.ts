@@ -23,7 +23,6 @@ export class ProdutoCreateComponent {
 
     this.produtosService.criar(produto).subscribe({
       next(value) {
-        alert('Produto criado com sucesso');
         resetForm();
       },
       error(err) {
