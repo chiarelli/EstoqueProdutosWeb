@@ -14,5 +14,12 @@ export const routes: Routes = [
     data: {
       title: 'Novo Produto'
     }
+  },
+  {
+    path: 'editar/:id',
+    loadComponent: () => import('./produto-edit/produto-edit.component').then(m => m.ProdutoEditComponent),
+    data: {
+      title: 'Editar Produto'
+    }
   }
 ]

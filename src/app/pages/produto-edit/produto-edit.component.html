@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Editar Produto</strong>
+    <a class="btn btn-sm btn-secondary" [routerLink]="['/produtos']">
+      Voltar
+    </a>
+  </div>
+
+  <div class="card-body">
+    <app-produto-form
+      [produto]="produto"
+      [botaoTexto]="'Salvar'"
+      (submitAction)="atualizarProduto($event)">
+    </app-produto-form>
+  </div>
+</div>

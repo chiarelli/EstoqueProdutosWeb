@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Categoria, Produto } from 'src/app/interfaces';
 import { CategoriasService } from 'src/app/services/categorias.service';
@@ -13,7 +13,7 @@ import { CategoriasService } from 'src/app/services/categorias.service';
   templateUrl: './produto-form.component.html',
   styleUrl: './produto-form.component.scss'
 })
-export class ProdutoFormComponent implements OnInit {
+export class ProdutoFormComponent implements OnInit, OnChanges {
 
   @Input() botaoTexto: string = 'Salvar';
   @Input() form: FormGroup = this.fb.group({
@@ -35,8 +35,16 @@ export class ProdutoFormComponent implements OnInit {
   
   ngOnInit(): void {
     this.#carregarCategorias();
-    if(this.produto) {
-      this.form.patchValue(this.produto);
+  }
+
+  ngOnChanges() {
+    if (this.produto) {
+      this.form.patchValue({
+        nome: this.produto.nome,
+        preco: this.produto.preco,
+        quantidade: this.produto.quantidade,
+        categoria_id: this.produto.categoria.id
+      });
     }
   }
 
