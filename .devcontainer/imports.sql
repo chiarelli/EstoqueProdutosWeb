@@ -3,6 +3,8 @@ SET default_table_access_method = heap;
 
 \connect estoque_produtos;
 
+START TRANSACTION;
+
 CREATE TABLE IF NOT EXISTS public.tb_categorias
 (
     id uuid NOT NULL,
@@ -23,3 +25,5 @@ VALUES
   ('022b570e-bf1b-4d90-b18a-4d75dfe291d1', 'Laticínios'),
   ('48f9ab24-b953-4d75-b236-3c166f85c574', 'Mercearia'),
   ('659435a2-c91d-4bff-b5c7-5384cc23b49f', 'Pet Shop');
+
+COMMIT;
