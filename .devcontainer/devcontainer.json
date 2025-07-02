@@ -33,6 +33,5 @@
         "johnpapa.Angular2"
       ]
     }
-  },
-  "postStartCommand": "npm run dev"
+  }
 }

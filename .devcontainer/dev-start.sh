@@ -15,5 +15,8 @@ else
   echo "Variáveis GIT_USER_NAME ou GIT_USER_EMAIL não definidas. Git não será configurado."
 fi
 
+ng completion || true
+exec npm run dev
+
 # Continua com o comportamento normal (ex: npm run dev)
 exec "$@"
