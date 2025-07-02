@@ -88,6 +88,32 @@ npm start
 O projeto estará acessível via:
 📍 `http://localhost:4200`
 
+## 🚀 Como executar os projetos frontend e backend, e suas dependências, em contêineres docker
+
+### Pré-requisitos
+
+* Docker
+* Docker Compose
+
+### Passos
+
+> Siga os passo 1 [anterior](#🚀-como-executar-o-projeto).
+
+2. **Build e Execute o projeto**
+
+Na raiz do projeto, execute:
+
+```bash
+docker compose -f docker/self-contained/docker-compose.yml up -d --build
+```
+> Na primeira execução, o build poderá demorar de 3 a 5 minutos, tenha paciência.
+
+O projeto estará acessível via:
+📍 `http://localhost:4200`
+
+Documentação swagger:
+📍 `http://localhost:8080/swagger-ui/index.html`
+
 ---
 
 ## 🔄 Integração com a API
