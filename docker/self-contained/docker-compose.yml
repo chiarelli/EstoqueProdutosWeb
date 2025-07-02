@@ -1,0 +1,53 @@
+services:
+  frontend:
+    build:
+      context: ../..
+      dockerfile: docker/self-contained/Dockerfile.frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - estoque_produtos_network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: >
+        {
+          "spring.datasource.url": "jdbc:postgresql://postgres:5432/estoque_produtos",
+          "spring.datasource.username": "postgres",
+          "spring.datasource.password": "postgres"
+        }
+    networks:
+      - estoque_produtos_network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+  
+  postgres:
+    image: postgres:16
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_DB=estoque_produtos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - estoque_produtos_data:/var/lib/postgresql/data
+      - ./imports.sql:/docker-entrypoint-initdb.d/imports.sql
+    networks:
+      - estoque_produtos_network
+    restart: unless-stopped
+
+
+volumes:
+  estoque_produtos_data:
+
+networks:
+  estoque_produtos_network:
+    driver: bridge

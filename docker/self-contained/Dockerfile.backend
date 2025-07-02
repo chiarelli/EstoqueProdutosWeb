@@ -1,0 +1,30 @@
+FROM eclipse-temurin:21-jdk-alpine AS builder
+
+ARG PROJECT_PATH=estoqueProdutos
+ARG PROJECT_URL=https://github.com/chiarelli/"${PROJECT_PATH}".git
+
+WORKDIR /app
+
+RUN apk update && apk add git maven \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Clone o projeto
+RUN git clone "${PROJECT_URL}" --depth 1
+
+WORKDIR /app/"${PROJECT_PATH}"
+
+RUN git checkout master \
+    && mvn clean install -DskipTests \
+    # Renomeia o JAR gerado para um nome padrão
+    && cp target/*.jar ../app.jar
+
+# Etapa 2: Imagem final
+FROM eclipse-temurin:21.0.1_12-jre-alpine
+
+WORKDIR /app
+COPY --from=builder /app/app.jar /app
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
